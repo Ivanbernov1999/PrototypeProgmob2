@@ -1,6 +1,7 @@
 package prototypeprogmob.com.Adapter;
 
 import android.content.Context;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,7 +56,9 @@ public class DosenAdapter extends RecyclerView.Adapter<DosenAdapter.ViewHolder>{
         return (dsnArrayList != null) ?dsnArrayList.size() : 0;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder
+            implements View.OnCreateContextMenuListener{
+
         private TextView txtNidn, txtNama, txtEmail, txtAlamat, txtGelar;
         ImageView ImgDsn;
 
@@ -68,6 +71,15 @@ public class DosenAdapter extends RecyclerView.Adapter<DosenAdapter.ViewHolder>{
             txtAlamat = view.findViewById(R.id.txtAlamat);
             txtGelar = view.findViewById(R.id.txtGelar);
             ImgDsn = view.findViewById(R.id.ImgDsn);
+            view.setOnCreateContextMenuListener(this);
+        }
+
+
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+            menu.setHeaderTitle("Pilih Aksi");
+            menu.add(this.getAdapterPosition(), v.getId(), 0, "Ubah Data Dosen");
+            menu.add(this.getAdapterPosition(), v.getId(), 0, "Hapus Data Dosen");
         }
     }
 }
